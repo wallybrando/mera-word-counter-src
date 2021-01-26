@@ -1,0 +1,54 @@
+﻿@typeparam TItem
+
+@if (List == null)
+{
+    @if (NullTemplate != null)
+    {
+        @NullTemplate
+    }
+    else
+    {
+        // Default Content
+        <text>Loading...</text>
+    }
+}
+else if (List.Count == 0)
+{
+    @if (EmptyTemplate != null)
+    {
+        @EmptyTemplate
+    }
+    else
+    {
+        // Default Content
+        <text>There are no records to show</text>
+    }
+}
+else
+{
+    @if (ElementTemplate != null)
+    {
+        <WordResult Result="Result" />
+        <div class="container">
+            @foreach (var element in List)
+            {
+                @ElementTemplate(element)
+            }
+        </div>
+    }
+    else
+    {
+        // Default Content
+        <text>There are no records to show</text>
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment NullTemplate { get; set; }
+    [Parameter] public RenderFragment EmptyTemplate { get; set; }
+    [Parameter] public RenderFragment<TItem> ElementTemplate { get; set; }
+    [Parameter] public List<TItem> List { get; set; }
+
+    [Parameter] public int Result { get; set; }
+
+}

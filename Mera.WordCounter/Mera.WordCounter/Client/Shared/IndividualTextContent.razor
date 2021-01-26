@@ -1,0 +1,20 @@
+﻿@using Mera.WordCounter.Shared.Entities
+<div class="row pb-sm-3">
+    <div class="col-md-8">
+        @Text.Content
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-success"
+                @onclick="@(() => CalculateWords.InvokeAsync(Text))">
+            Calculate
+        </button>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Text Text { get; set; }
+    [Parameter] public EventCallback<Text> CalculateWords { get; set; }
+
+    [Parameter] public RenderFragment WordResultTemplate { get; set; }
+}

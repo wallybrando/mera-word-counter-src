@@ -1,7 +1,55 @@
 ﻿@page "/"
+@page "/index"
+@inject ITextConsumer TextConsumer
 
-<h1>Hello, world!</h1>
+<h1>Word Counter</h1>
 
-Welcome to your new app.
+Word counter application gives you three ways of calculating number of words in text:
+<ol>
+    <li>Calculate number of words in text entered from text field</li>
+    <li>Calculate number of words in uploaded txt file</li>
+    <li>Calculate number of words by selecting specific text from table</li>
+</ol>
+<hr />
+<div style="padding-left: 20px">
+    <h3>Input Field</h3>
+    <InputForm Text="Text" OnValidSubmit="CalculateNumberOfWordsFromTextControl" />
+    <WordResult Result="inputFileResult" />
+    <hr />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <h3>File Upload</h3>
+    <InputTextFile />
+    <hr />
+
+    <h3>Database</h3>
+    <GenericList List="UploadedTextRecords" Result="databaseWordResult">
+        <ElementTemplate Context="item">
+            <IndividualTextContent Text="item" CalculateWords="CalculateNumberOfWordsFromDatabase" />
+        </ElementTemplate>
+    </GenericList>
+</div>
+
+@code
+{
+    private Text Text = new Text();
+    private List<Text> UploadedTextRecords = new List<Text>();
+    private string text = "";
+    int inputFileResult = 0, databaseWordResult = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        UploadedTextRecords = await TextConsumer.GetTexts();
+    }
+
+    private async Task CalculateNumberOfWordsFromTextControl()
+    {
+        // Calculate number of text's words from input filed
+        inputFileResult = await TextConsumer.CalculateNumberOfWords(Text);
+    }
+
+    private async Task CalculateNumberOfWordsFromDatabase(Text text)
+    {
+        // Calculate number of text's words from DB (Table)
+        databaseWordResult = await TextConsumer.CalculateNumberOfWords(text);
+    }
+}

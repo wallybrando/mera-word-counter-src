@@ -7,6 +7,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Mera.WordCounter.Client.Consumers;
+using Mera.WordCounter.Client.Helpers;
+using Mera.WordCounter.Client.Interfaces.Consumers;
+using Mera.WordCounter.Client.Interfaces.Helpers;
+using Tewr.Blazor.FileReader;
 
 namespace Mera.WordCounter.Client
 {
@@ -19,7 +24,16 @@ namespace Mera.WordCounter.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+            ConfigureServices(builder.Services);
+
             await builder.Build().RunAsync();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<ITextConsumer, TextConsumer>();
+            services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
         }
     }
 }

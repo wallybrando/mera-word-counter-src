@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mera.WordCounter.Server", "Mera.WordCounter\Server\Mera.WordCounter.Server.csproj", "{BD4CCAD8-9735-406E-BC16-1469C03F5837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Server", "Mera.WordCounter\Server\Mera.WordCounter.Server.csproj", "{BD4CCAD8-9735-406E-BC16-1469C03F5837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mera.WordCounter.Client", "Mera.WordCounter\Client\Mera.WordCounter.Client.csproj", "{718B4C5A-FA01-4EEC-90F1-6F9B4D1C507B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Client", "Mera.WordCounter\Client\Mera.WordCounter.Client.csproj", "{718B4C5A-FA01-4EEC-90F1-6F9B4D1C507B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mera.WordCounter.Shared", "Mera.WordCounter\Shared\Mera.WordCounter.Shared.csproj", "{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Shared", "Mera.WordCounter\Shared\Mera.WordCounter.Shared.csproj", "{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

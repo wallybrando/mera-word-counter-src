@@ -6,6 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Mera.WordCounter.Server.Helpers;
+using Mera.WordCounter.Server.Interfaces;
+using Mera.WordCounter.Server.Interfaces.Services;
+using Mera.WordCounter.Server.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mera.WordCounter.Server
 {
@@ -22,9 +27,19 @@ namespace Mera.WordCounter.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            /*** Dependency Injections ********************************************/
+
+            // Unit of Work - Repositories
+            services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
+
+            // Services
+            services.AddScoped<ITextService, TextService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,68 @@
+﻿@using Mera.WordCounter.Client.Interfaces.Consumers
+@using Mera.WordCounter.Shared.Entities
+@inject IFileReaderService fileReaderService
+@inject ITextConsumer TextConsumer
+
+<div class="form-group">
+    <div class="form-inline">
+        <label>@Label</label>
+        <div>
+            <BlazorInputFile.InputFile accept=".txt" OnChange="TextFileSelected" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" @onclick="CalculateNumberOfWordsFromFile">Calculate</button>
+    <WordResult Result="result" />
+
+    <div readonly=""
+         style="border: 1px solid gray; width: 1200px; height: 700px; overflow: scroll; ">
+        @foreach (var text in UploadedTextRecords)
+        {
+            @text
+            <br />
+        }
+    </div>
+</div>
+
+@code {
+
+    //[Parameter] public EventCallback<string> Calculate { get; set; }
+    [Parameter] public string Label { get; set; } = "Please upload textual file";
+    //[Parameter] public string Text { get; set; }
+
+    private List<string> UploadedTextRecords { get; set; } = new List<string>();
+    private string Text { get; set; }
+    private int result = 0;
+
+    private async Task TextFileSelected(IFileListEntry[] files)
+    {
+        UploadedTextRecords.Clear();
+        IFileListEntry  file = files.FirstOrDefault();
+
+        if (file != null)
+        {
+            if (file.Type == "text/plain")
+            {
+                using var reader = new System.IO.StreamReader(file.Data);
+                string text = "";
+                while ((text = await reader.ReadLineAsync()) != null)
+                {
+                    UploadedTextRecords.Add(text);
+                    Text += $"{text} ";
+                    text = "";
+                }
+
+                result = 0;
+                StateHasChanged();
+            }
+        }
+
+        // handle here case for invalid file
+    }
+
+    private async Task CalculateNumberOfWordsFromFile()
+    {
+        // Calculate number of text's words from file
+        result = await TextConsumer.CalculateNumberOfWords(new Text {Content = Text});
+    }
+}
