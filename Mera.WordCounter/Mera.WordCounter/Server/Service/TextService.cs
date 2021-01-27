@@ -86,8 +86,6 @@ namespace Mera.WordCounter.Server.Service
         /// <returns></returns>
         public async Task<int> CalculateNumberOfWords(string text)
         {
-            int result = 0;
-
             /*** Trim whitespace from beginning and end of string *******************************/
             text = text.Trim();
 
@@ -103,16 +101,11 @@ namespace Mera.WordCounter.Server.Service
                 text = text.Replace("  ", " ");
             }
 
-            // TODO provera za znakove interpunkcije
 
             /*** Count the words ****************************************************************/
-            //result = text.Split(' ').Length;
-            foreach (string word in text.Split(' '))
-            {
-                result++;
-            }
+            var words = text.Split(new[] {" ", ",", "-", "!", "."}, StringSplitOptions.RemoveEmptyEntries);
 
-            return await Task.FromResult(result); ;
+            return await Task.FromResult(words.Length); ;
         }
     }
 }
