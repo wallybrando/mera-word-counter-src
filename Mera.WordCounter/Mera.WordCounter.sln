@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Shared", "Mera.WordCounter\Shared\Mera.WordCounter.Shared.csproj", "{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mera.WordCounter.Server.Tests", "Mera.WordCounter\Server.Tests\Mera.WordCounter.Server.Tests.csproj", "{5709A6A1-A9B0-45CA-ADFD-21C749C37BA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01AFC6F7-F08D-4039-B56F-4891ADA7EAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5709A6A1-A9B0-45CA-ADFD-21C749C37BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5709A6A1-A9B0-45CA-ADFD-21C749C37BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5709A6A1-A9B0-45CA-ADFD-21C749C37BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5709A6A1-A9B0-45CA-ADFD-21C749C37BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
