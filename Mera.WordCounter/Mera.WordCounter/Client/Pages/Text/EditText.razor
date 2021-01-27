@@ -1,0 +1,26 @@
+﻿@page "/text/edit/{TextId:int}"
+@inject ITextConsumer TextConsumer
+@inject NavigationManager NavigationManager
+
+<h3>Edit Text</h3>
+
+@if (Text != null)
+{
+    <InputForm Text="Text" OnValidSubmit="Edit" ButtonName="@("Edit")"/>
+}
+@code {
+    [Parameter] public int TextId { get; set; }
+    public Text Text;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Text = await TextConsumer.GetText(TextId);
+    }
+
+    private async Task Edit()
+    {
+        await TextConsumer.UpdateText(Text);
+        NavigationManager.NavigateTo("/");
+    }
+
+}

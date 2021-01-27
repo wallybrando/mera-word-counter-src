@@ -11,7 +11,7 @@ using Mera.WordCounter.Client.Consumers;
 using Mera.WordCounter.Client.Helpers;
 using Mera.WordCounter.Client.Interfaces.Consumers;
 using Mera.WordCounter.Client.Interfaces.Helpers;
-using Tewr.Blazor.FileReader;
+
 
 namespace Mera.WordCounter.Client
 {
@@ -33,7 +33,6 @@ namespace Mera.WordCounter.Client
         {
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<ITextConsumer, TextConsumer>();
-            services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
         }
     }
 }

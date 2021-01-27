@@ -8,28 +8,41 @@ using Mera.WordCounter.Server.Repository;
 
 namespace Mera.WordCounter.Server.Helpers
 {
+    /// <summary>
+    /// Unit of Work design pattern
+    /// </summary>
     public class ApplicationUnitOfWork : IApplicationUnitOfWork
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
+        private ITextRepository _textRepository;
 
-        private ITextRepository textRepository;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="applicationDbContext"></param>
         public ApplicationUnitOfWork(ApplicationDbContext applicationDbContext)
         {
-            context = applicationDbContext;
+            _context = applicationDbContext;
         }
 
+        /// <summary>
+        /// Text Repository Getter
+        /// </summary>
         public ITextRepository TextRepository
         {
             get
             {
-                return textRepository ??= new TextRepository(context);
+                return _textRepository ??= new TextRepository(_context);
             }
         }
 
+        /// <summary>
+        /// Saves Changes
+        /// </summary>
+        /// <returns></returns>
         public async Task<int> Save()
         {
-            return await context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

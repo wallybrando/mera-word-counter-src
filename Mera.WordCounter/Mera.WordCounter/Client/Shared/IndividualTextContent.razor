@@ -1,9 +1,16 @@
-﻿@using Mera.WordCounter.Shared.Entities
-<div class="row pb-sm-3">
-    <div class="col-md-8">
+﻿<div class="row pb-sm-3">
+    <div class="col">
         @Text.Content
     </div>
-    <div class="col-md-4">
+    <div class="col">
+        <a class="btn btn-link" href="/text/edit/@Text.Id">Edit</a>
+        <button type="button"
+                class="btn btn-danger"
+                @onclick="(() => DeleteText.InvokeAsync(Text))">
+            Delete
+        </button>
+    </div>
+    <div class="col">
         <button type="button" class="btn btn-success"
                 @onclick="@(() => CalculateWords.InvokeAsync(Text))">
             Calculate
@@ -12,9 +19,8 @@
 </div>
 
 @code {
-
     [Parameter] public Text Text { get; set; }
     [Parameter] public EventCallback<Text> CalculateWords { get; set; }
-
+    [Parameter] public EventCallback<Text> DeleteText { get; set; }
     [Parameter] public RenderFragment WordResultTemplate { get; set; }
 }

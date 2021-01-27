@@ -9,60 +9,98 @@ using Mera.WordCounter.Shared.Entities;
 
 namespace Mera.WordCounter.Server.Controllers
 {
+    /// <summary>
+    /// Texts Controller
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class TextsController : ControllerBase
     {
-        private readonly ApplicationDbContext context; // for removing
-        private readonly ITextService textService;
+        private readonly ITextService _textService;
 
-        public TextsController(ApplicationDbContext context, ITextService textService)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="textService">Text Service</param>
+        public TextsController(ITextService textService)
         {
-            this.context = context;
-            this.textService = textService;
+            _textService = textService;
         }
 
+        /// <summary>
+        /// Gets a list of Texts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<List<Text>>> Get()
         {
-            return await textService.ReadTexts();
+            return await _textService.ReadTexts();
         }
 
-        [HttpPost("create")]
-        public async Task<ActionResult<int>> PostCreate([FromBody] Text text)
+        /// <summary>
+        /// Gets a Text by specified Id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Text>> Get(int id)
         {
-            return await textService.CreateText(text);
+            var response = await _textService.ReadText_ById(id);
+
+            if (response == null) return NotFound();
+
+            return response;
         }
 
+        /// <summary>
+        /// Creates new Text
+        /// </summary>
+        /// <param name="text">New Text</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromBody] Text text)
         {
+            return await _textService.CreateText(text);
+        }
+
+        /// <summary>
+        /// Updates Text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] Text text)
+        {
+            await _textService.UpdateText(text);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes Text by specified Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await _textService.DeleteText(id);
+
+            if (!response) return NotFound();
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Calculates total number of words in text 
+        /// </summary>
+        /// <param name="text">Text</param>
+        /// <returns></returns>
+        [HttpPost("calculate")]
+        public async Task<ActionResult<int>> Calculate([FromBody] Text text)
+        {
             try
             {
-                //int result = 0;
-
-                ////Trim whitespace from beginning and end of string
-                //text.Content = text.Content.Trim();
-
-                ////Necessary because foreach will execute once with empty string returning 1
-                //if (text.Content == "")
-                //    return 0;
-
-                ////Ensure there is only one space between each word in the passed string
-                //while (text.Content.Contains("  "))
-                //{
-                //    text.Content = text.Content.Replace("  ", " ");
-                //}
-
-                ////Count the words
-                //foreach (string y in text.Content.Split(' '))
-                //{
-                //    result++;
-                //}
-
-                return await textService.CalculateNumberOfWords(text.Content);
-
-                //return result;
+                return await _textService.CalculateNumberOfWords(text.Content);
             }
             catch (Exception e)
             {

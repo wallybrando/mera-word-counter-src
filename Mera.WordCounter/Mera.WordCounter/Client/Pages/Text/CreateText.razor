@@ -1,0 +1,24 @@
+﻿@page "/text/create"
+@inject ITextConsumer TextConsumer
+@inject NavigationManager NavigationManager
+
+<h3>Create Text</h3>
+<InputForm Text="Text" OnValidSubmit="Create" ButtonName="@("Create")"/>
+
+@code {
+    private Text Text = new Text();
+
+    private async Task Create()
+    {
+        try
+        {
+            await TextConsumer.CreateText(Text);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            // ...
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

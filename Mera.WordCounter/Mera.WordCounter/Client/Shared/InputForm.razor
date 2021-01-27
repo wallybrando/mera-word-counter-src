@@ -1,6 +1,4 @@
-﻿@using Mera.WordCounter.Shared.Entities
-
-<EditForm Model="Text" OnValidSubmit="OnValidSubmit">
+﻿<EditForm Model="Text" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
     <div class="form-group">
@@ -10,10 +8,13 @@
             <ValidationMessage For="@(() => Text.Content)" />
         </div>
     </div>
-    <button class="btn btn-primary" type="submit">Calculate</button>
+    <button class="btn btn-primary" type="submit">@ButtonName</button>
 </EditForm>
 
 @code {
     [Parameter] public Text Text { get; set; }
+
+    [Parameter] public string ButtonName { get; set; } = "Submit";
+
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 }
