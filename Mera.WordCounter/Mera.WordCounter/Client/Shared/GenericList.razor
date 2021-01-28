@@ -28,7 +28,14 @@ else
 {
     @if (ElementTemplate != null)
     {
-        <WordResult Result="Result" />
+        @if (Result != 0)
+        {
+            <div class="form-group">
+                <div class="alert alert-success" role="alert">
+                    Total number of words is @Result
+                </div>
+            </div>
+        }
         <div class="container">
             @foreach (var element in List)
             {

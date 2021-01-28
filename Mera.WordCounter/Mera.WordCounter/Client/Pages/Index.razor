@@ -14,8 +14,15 @@ Word counter application gives you three ways of calculating number of words in 
 
 <div style="padding-left: 20px">
     <h3>Input Field</h3>
-    <InputForm Text="Text" OnValidSubmit="CalculateNumberOfWordsFromTextControl" ButtonName="@("Calculate")"/>
-    <WordResult Result="inputFileResult" />
+    <InputForm Text="Text" OnValidSubmit="CalculateNumberOfWordsFromTextControl" ButtonName="@("Calculate")" />
+    @if (!string.IsNullOrEmpty(Text.Content) && inputResult != 0)
+    {
+        <div class="form-group">
+            <div class="alert alert-success" role="alert">
+                Total number of words is @inputResult
+            </div>
+        </div>
+    }
     <hr />
 
     <h3>File Upload</h3>
@@ -25,7 +32,7 @@ Word counter application gives you three ways of calculating number of words in 
     <h3>Database</h3>
     <GenericList List="UploadedTextRecords" Result="databaseWordResult">
         <ElementTemplate Context="item">
-            <IndividualTextContent Text="item" CalculateWords="CalculateNumberOfWordsFromDatabase" DeleteText="DeleteText"/>
+            <IndividualTextContent Text="item" CalculateWords="CalculateNumberOfWordsFromDatabase" DeleteText="DeleteText" />
         </ElementTemplate>
     </GenericList>
 </div>
@@ -34,7 +41,7 @@ Word counter application gives you three ways of calculating number of words in 
     private WordCounter.Shared.Entities.Text Text = new WordCounter.Shared.Entities.Text();
     private List<WordCounter.Shared.Entities.Text> UploadedTextRecords = new List<WordCounter.Shared.Entities.Text>();
     private string text = "";
-    int inputFileResult = 0, databaseWordResult = 0;
+    int inputResult = 0, databaseWordResult = 0;
 
     /// <summary>
     /// OnInitializedAsync method
@@ -51,7 +58,9 @@ Word counter application gives you three ways of calculating number of words in 
     /// <returns></returns>
     private async Task CalculateNumberOfWordsFromTextControl()
     {
-        inputFileResult = await TextConsumer.CalculateNumberOfWords(Text);
+        inputResult = 0;
+        databaseWordResult = 0;
+        inputResult = await TextConsumer.CalculateNumberOfWords(Text);
     }
 
     /// <summary>
@@ -61,6 +70,8 @@ Word counter application gives you three ways of calculating number of words in 
     /// <returns></returns>
     private async Task CalculateNumberOfWordsFromDatabase(WordCounter.Shared.Entities.Text currentText)
     {
+        inputResult = 0;
+        databaseWordResult = 0;
         databaseWordResult = await TextConsumer.CalculateNumberOfWords(currentText);
     }
 

@@ -2,21 +2,33 @@
 
 <div class="form-group">
     <div class="form-inline">
-        <label>@Label</label>
+        <div style="margin-right: 10px">
+            <label>@Label</label>
+        </div>
         <div>
             <BlazorInputFile.InputFile accept=".txt" OnChange="TextFileSelected" />
         </div>
     </div>
 
     <div class="form-group">
-        <div class="form-inline">
-            <div style="margin-right: 10px">
-                <button class="btn btn-primary" @onclick="CalculateNumberOfWordsFromFile">Calculate</button>
-            </div>
-            <div style="margin-right: 10px">
-                <WordResult Result="result"/>
-            </div>
+        <div style="margin-right: 10px">
+            <button class="btn btn-primary" @onclick="CalculateNumberOfWordsFromFile">Calculate</button>
         </div>
+    </div>
+
+    <div class="form-group">
+        @if (!string.IsNullOrEmpty(Text) && result != 0)
+        {
+            <div class="alert alert-success" role="alert">
+                Total number of words is @result
+            </div>
+        }
+        else if (NothingToCount)
+        {
+            <div class="alert alert-danger" role="alert">
+                Nothing to count.
+            </div>
+        }
     </div>
 
     <div class="form-group">
@@ -37,11 +49,13 @@
     private List<string> UploadedTextRecords { get; set; } = new List<string>();
     private string Text { get; set; }
     private int result = 0;
+    private bool NothingToCount { get; set; } = false;
 
     private async Task TextFileSelected(IFileListEntry[] files)
     {
         UploadedTextRecords.Clear();
         Text = "";
+        result = 0;
         IFileListEntry  file = files.FirstOrDefault();
 
         if (file != null)
@@ -56,13 +70,8 @@
                     Text += $"{text} ";
                     text = "";
                 }
-
-                result = 0;
-                StateHasChanged();
             }
         }
-
-        // handle here case for invalid file
     }
 
     private async Task CalculateNumberOfWordsFromFile()
@@ -71,7 +80,13 @@
         // Calculate number of text's words from file
         if (!string.IsNullOrEmpty(Text))
         {
+            NothingToCount = true;
             result = await TextConsumer.CalculateNumberOfWords(new Text {Content = Text});
+        }
+        else
+        {
+            NothingToCount = true;
+            StateHasChanged();
         }
     }
 }

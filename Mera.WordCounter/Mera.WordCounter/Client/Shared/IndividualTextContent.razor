@@ -1,4 +1,10 @@
 ﻿<div class="row pb-sm-3">
+    <div class="col-md-1" style="margin-right: 10px">
+        <button type="button" class="btn btn-success"
+                @onclick="@(() => CalculateWords.InvokeAsync(Text))">
+            Calculate
+        </button>
+    </div>
     <div class="col">
         @Text.Content
     </div>
@@ -8,12 +14,6 @@
                 class="btn btn-danger"
                 @onclick="(() => DeleteText.InvokeAsync(Text))">
             Delete
-        </button>
-    </div>
-    <div class="col">
-        <button type="button" class="btn btn-success"
-                @onclick="@(() => CalculateWords.InvokeAsync(Text))">
-            Calculate
         </button>
     </div>
 </div>
