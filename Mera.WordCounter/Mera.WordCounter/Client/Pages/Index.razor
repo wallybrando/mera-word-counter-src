@@ -82,6 +82,7 @@ Word counter application gives you three ways of calculating number of words in 
     /// <returns></returns>
     private async Task DeleteText(WordCounter.Shared.Entities.Text currentText)
     {
+        databaseWordResult = 0;
         await TextConsumer.DeleteText(currentText.Id);
         UploadedTextRecords = await TextConsumer.GetTexts();
     }

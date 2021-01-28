@@ -80,7 +80,7 @@
         // Calculate number of text's words from file
         if (!string.IsNullOrEmpty(Text))
         {
-            NothingToCount = true;
+            NothingToCount = false;
             result = await TextConsumer.CalculateNumberOfWords(new Text {Content = Text});
         }
         else
