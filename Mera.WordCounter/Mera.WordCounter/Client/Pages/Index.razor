@@ -23,6 +23,14 @@ Word counter application gives you three ways of calculating number of words in 
             </div>
         </div>
     }
+    else if (!string.IsNullOrEmpty(Text.Content))
+    {
+        <div class="form-group">
+            <div class="alert alert-success" role="alert">
+                Total number of words is 0
+            </div>
+        </div>
+    }
     <hr />
 
     <h3>File Upload</h3>
