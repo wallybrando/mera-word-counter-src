@@ -1,2 +1,22 @@
 # mera-word-counter-src
-The application is based on the Blazor framework with the WebAPI concept
+==================================================================================================================
+  __  __                 __          __           _    _____                  _                                   
+ |  \/  |                \ \        / /          | |  / ____|                | |                /\                
+ | \  / | ___ _ __ __ _   \ \  /\  / /__  _ __ __| | | |     ___  _   _ _ __ | |_ ___ _ __     /  \   _ __  _ __  
+ | |\/| |/ _ \ '__/ _` |   \ \/  \/ / _ \| '__/ _` | | |    / _ \| | | | '_ \| __/ _ \ '__|   / /\ \ | '_ \| '_ \ 
+ | |  | |  __/ | | (_| |    \  /\  / (_) | | | (_| | | |___| (_) | |_| | | | | ||  __/ |     / ____ \| |_) | |_) |
+ |_|  |_|\___|_|  \__,_|     \/  \/ \___/|_|  \__,_|  \_____\___/ \__,_|_| |_|\__\___|_|    /_/    \_\ .__/| .__/ 
+                                                                                                     | |   | |    
+                                                                                                     |_|   |_|    
+==================================================================================================================
+Version: 1.0.0
+Front-end: Blazor WebAssembly
+Back-end: Web API
+Database: (local)
+------------------------------------------------------------------------------------------------------------------
+Application has been built with .Net Core 5.
+To run application you have to have installed .NET Core 5 SDK or Visual Studio 16.8
+---- Features ----------------------------------------------------------------------------------------------------
+ * Counting number of words in text entered through input field
+ * Counting number of words in text from uploaded txt file
+ * Counting number of words in text saved in database
